@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="image/png" sizes="32x32" rel="icon" href="./resources/images/icons8-checklist-32.png">
+    <script defer src="./main.js"></script>
+    <title>YourTodo</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <button type="button" class="sidebarBtn">
+                <img src="./resources/images/icons8-menu.svg" alt="Sidebar">
+            </button>
+            <div class="navMain">
+                <img class="navIcon" src="./resources/images/icons8-checklist-96.png" alt="TodoList Icon">
+                <span class="navTitle">YourTodo</span>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <aside class="sidebar">
+            <h2>Projects</h2>
+            <button class="newProjectBtn">New Project</button>
+
+            <div class="projects">
+                <button class="projectItem active">Default</button>
+            </div>
+        </aside>
+
+        <section aria-labelledby="currentProjectTitle" class="container">
+            <h1 id="currentProjectTitle">Default</h1>
+            
+            <ul class="todos">
+                <li class="todoItem">
+                    <span>High Priority Item</span>
+                    <button>Details</button>
+                </li>
+                <li class="todoItem">
+                    <span>Medium Priority Item</span>
+                    <button>Details</button>
+                </li>
+                <li class="todoItem">
+                    <span>Low Priority Item</span>
+                    <button>Details</button>
+                </li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>
