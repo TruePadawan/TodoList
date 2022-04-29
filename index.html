@@ -5,7 +5,8 @@
     <meta content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="image/png" sizes="32x32" rel="icon" href="./resources/images/icons8-checklist-32.png">
-    <script defer src="./main.js"></script>
+    <script defer src="./js/main.bundle.js"></script>
+    <script defer src="./js/sidebar.bundle.js"></script>
     <title>YourTodo</title>
 </head>
 <body>
@@ -21,12 +22,15 @@
         </nav>
     </header>
     <main>
-        <aside class="sidebar">
+        <aside class="sidebar open">
             <h2>Projects</h2>
-            <button class="newProjectBtn">New Project</button>
+            <button type="button" class="newProjectBtn">New Project</button>
 
             <div class="projects">
-                <button class="projectItem active">Default</button>
+                <button type="button" class="projectItem active">
+                    <span class="projectTitle" role="textbox" contenteditable>Default</span>
+                    <img src="./resources/images/trash.png" alt="Trash">
+                </button>
             </div>
         </aside>
 
@@ -34,17 +38,17 @@
             <h1 id="currentProjectTitle">Default</h1>
             
             <ul class="todos">
-                <li class="todoItem">
-                    <span>High Priority Item</span>
-                    <button>Details</button>
+                <li class="todoItem priority_high">
+                    <span class="todoItem_title">High Priority Item</span>
+                    <button class="showTodoDetailsBtn">Details</button>
                 </li>
-                <li class="todoItem">
-                    <span>Medium Priority Item</span>
-                    <button>Details</button>
+                <li class="todoItem priority_med">
+                    <span class="todoItem_title">Medium Priority Item</span>
+                    <button class="showTodoDetailsBtn">Details</button>
                 </li>
-                <li class="todoItem">
-                    <span>Low Priority Item</span>
-                    <button>Details</button>
+                <li class="todoItem priority_low">
+                    <span class="todoItem_title">Low Priority Item</span>
+                    <button class="showTodoDetailsBtn">Details</button>
                 </li>
             </ul>
         </div>
