@@ -1,1 +1,2 @@
-import "./index.css";
+import "./init.css";
+import "./main.css";
