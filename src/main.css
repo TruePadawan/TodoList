@@ -47,24 +47,33 @@ nav {
 main {
     height: 100%;
     display: grid;
+}
+
+.sidebarOpen {
     grid-template-columns: min(100%,280px) 1fr;
 }
 
-
+.sidebarClosed {
+    grid-template-columns: 1fr;
+}
 
 
 /* SIDEBAR */
-.sidebar, .container {
+.sidebar {
+    background-color: #FFFBEF;
+}
+
+.open, .container {
     padding: 23px;
-    
+
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 1.2rem;
 }
 
-.sidebar {
-    background-color: #FFFBEF;
+.closed {
+    display: none;
 }
 
 .sidebar > h2 {
@@ -153,6 +162,10 @@ main {
 }
 
 .todos {
+    margin: 0 auto;
+
+    max-width: 102rem;
+    width: 100%;
     gap: 1.5rem;
 }
 
@@ -188,4 +201,16 @@ main {
 
 .priority_low {
     background-color: #FFD8A9;
+}
+
+@media screen and (max-width: 700px) {
+    .sidebarClosed {
+        grid-template-columns: 1fr;
+    }
+
+    .open {
+        position: absolute;
+        width: 100%;
+        height: calc(100% - 80px);
+    }
 }
