@@ -1,17 +1,14 @@
 const path = require("path");
 
 module.exports = {
-  entry: {
-    main: "./src/index.js",
-    sidebar: "./src/sidebar.js"
-  },
+  entry: "./src/index.js",
   mode: "development",
   devtool: "inline-source-map",
   devServer: {
     static: './dist',
   },
   output: {
-    filename: "[name].bundle.js",
+    filename: "main.js",
     path: path.resolve(__dirname, "dist"),
   },
   module: {
