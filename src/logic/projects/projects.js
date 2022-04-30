@@ -20,8 +20,11 @@ export function createNewProjectItem(title)
     });
 
     let deleteProjectBtn = newProjectItem.querySelector('.deleteProjectItem');
-    deleteProjectBtn.addEventListener('click', () => {
+    deleteProjectBtn.addEventListener('click', (e) => {
         newProjectItem.remove();
+        updateProjectItemList();
+
+        e.stopPropagation();
     });
 
     return newProjectItem;
@@ -48,6 +51,7 @@ function setActiveProject(projectItem)
     projectItemList.forEach(item => {
         item.className = "projectItem";
     });
+    console.log('setting active project');
 
     projectItem.classList.add('active');
 }
