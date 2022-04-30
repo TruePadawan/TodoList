@@ -23,19 +23,27 @@
     <main class="sidebarClosed" data-sidebar="closed">
         <aside class="sidebar closed">
             <h2>Projects</h2>
-            <button type="button" class="newProjectBtn">New Project</button>
+            <button type="button" id="newProjectBtn">New Project</button>
 
             <div class="projects">
-                <button type="button" class="projectItem active">
+                <!-- PROJECT ITEM TEMPLATE USED FOR CREATING NEW PROJECT ITEMS VIA JAVASCRIPT -->
+                <template id="projectTemplate">
+                    <button type="button" class="projectItem">
+                        <span class="projectTitle" role="textbox" contenteditable>Untitled</span>
+                        <img class="deleteProjectItem" role="button" src="./images/trash.png" alt="Trash">
+                    </button>    
+                </template>
+                
+                <!-- <button type="button" class="projectItem active">
                     <span class="projectTitle" role="textbox" contenteditable>Default</span>
-                    <img src="./images/trash.png" alt="Trash">
-                </button>
+                    <img class="deleteProjectItem" src="./images/trash.png" alt="Trash">
+                </button> -->
             </div>
         </aside>
 
         <section aria-labelledby="currentProjectTitle" class="container">
             <h1 id="currentProjectTitle">Default</h1>
-            
+            <button id="newItemBtn">New Item</button>
             <ul class="todos">
                 <li class="todoItem priority_high">
                     <span class="todoItem_title">High Priority Item</span>
