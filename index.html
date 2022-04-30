@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="image/png" sizes="32x32" rel="icon" href="./resources/images/icons8-checklist-32.png">
-    <script defer src="./main.bundle.js"></script>
-    <script defer src="./sidebar.bundle.js"></script>
+    <link type="image/png" sizes="32x32" rel="icon" href="./images/checklist_32px.png">
+    <script defer src="./main.js"></script>
     <title>YourTodo</title>
 </head>
 <body>
@@ -21,8 +20,8 @@
             </div>
         </nav>
     </header>
-    <main>
-        <aside class="sidebar open">
+    <main class="sidebarClosed" data-sidebar="closed">
+        <aside class="sidebar closed">
             <h2>Projects</h2>
             <button type="button" class="newProjectBtn">New Project</button>
 
