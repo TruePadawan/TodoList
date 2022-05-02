@@ -25,12 +25,16 @@ class ProjectManager {
 
   updateProjectList(projectItem) {
     const projectID = projectItem.getID();
-    
+
     this.#projectsList[projectID] = {
       title: projectItem.title,
       todos: projectItem.todos,
       node: projectItem.getNode(),
     };
+  }
+
+  numberOfProjects() {
+    return Object.keys(this.#projectsList).length;
   }
 }
 
