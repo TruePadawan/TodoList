@@ -25,7 +25,7 @@ class EventManager {
         throw "Event Not Registered";
     }
 
-    triggerActions(eventName)
+    triggerActions(eventName, params)
     {
         const isEventRegistered = this.#events.hasOwnProperty(eventName);
 
@@ -33,8 +33,8 @@ class EventManager {
         {
           let eventActions = this.#events[eventName];
 
-          eventActions.forEach((action) => {
-            action();
+          eventActions.forEach(action => {
+            action(...params);
           });
         }
 
