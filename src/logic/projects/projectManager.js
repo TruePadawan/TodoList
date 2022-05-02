@@ -18,9 +18,9 @@ class ProjectManager {
 
   addProject(title = "Untitled") {
     const project = this.#createProjectItem(title);
-    this.#projectsContainer.appendChild(project);
+    this.#projectsContainer.appendChild(project.getNode());
 
-    eventManager.triggerActions("projectAdded");
+    // eventManager.triggerActions("projectAdded");
   }
 
   updateProjectList(projectItem) {
