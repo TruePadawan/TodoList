@@ -11,13 +11,13 @@ class ProjectManager {
     console.log("creating project manager");
   }
 
-  createProjectItem(title) {
+  #createProjectItem(title) {
     const projectItem = new Project(title);
     return projectItem;
   }
 
   addProject(title = "Untitled") {
-    const project = this.createProjectItem(title);
+    const project = this.#createProjectItem(title);
     this.#projectsContainer.appendChild(project);
 
     eventManager.triggerActions("projectAdded");
