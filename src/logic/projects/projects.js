@@ -1,64 +1,74 @@
-// HANDLE PROJECT AND PROJECT ITEM LOGIC
+import { eventManager } from "../../handlers/eventManager";
+import { projectManager } from "./projectManager";
+import { v4 as uuidv4 } from 'uuid';
 import "./projects.css";
 
-const newProjectBtn = document.getElementById('newProjectBtn');
-const projectsContainer = document.querySelector('.projects');
 const projectItemTemplate = document.getElementById('projectTemplate');
-let projectItemList = [];
 
-newProjectBtn.onclick = () => { addNewProjectItem() };
+export class Project {
+    #id;
+    #node;
+    title = '';
+    todos = [];
 
-export function createNewProjectItem(title)
-{
-    // CLONE THE PROJECT ITEM TEMPLATE
-    let newProjectItem = projectItemTemplate.content.firstElementChild.cloneNode(true);
+    constructor(_title, _todos = [])
+    {
+        this.#id = uuidv4();
+        this.title = _title;
+        
+        let projectDOMNode = projectItemTemplate.content.firstElementChild.cloneNode(true);
+        projectDOMNode.querySelector(".projectTitle").textContent = _title;
+        
+        this.#node = projectDOMNode;
+        this.todos = _todos;
 
-    newProjectItem.querySelector('.projectTitle').textContent = title;
+        this.#_init();
+    }
 
-    newProjectItem.addEventListener('click',() => {
-        setActiveProject(newProjectItem);
-    });
-
-    let deleteProjectBtn = newProjectItem.querySelector('.deleteProjectItem');
-    deleteProjectBtn.addEventListener('click', (e) => {
-        newProjectItem.remove();
-        updateProjectItemList();
-
-        e.stopPropagation();
-    });
-
-    return newProjectItem;
-}
-
-export function addNewProjectItem(title="Untitled")
-{
-    const projectItem = createNewProjectItem(title);
-    projectsContainer.appendChild(projectItem);
+    #_init()
+    {
+        this.#node.addEventListener("click", () => {
+            eventManager.triggerActions('projectItemClicked', this.#id);
+        });
     
-    updateProjectItemList();
-    setActiveProject(projectItem);
+        let deleteProjectBtn = this.#node.querySelector(".deleteProjectItem");
+        deleteProjectBtn.addEventListener("click", (e) => {
+            this.#node.remove();
+            eventManager.triggerActions('projectItemDeleted', [this.#id]);
+            
+            e.stopPropagation();
+        });
+    }
+    
+    getNode = () => this.#node;
+    getID = () => this.#id;
 }
 
-function updateProjectItemList()
-{
-    let items = document.querySelectorAll('.projects > .projectItem');
-    projectItemList = Array.from(items);
+// REGISTER EVENTS
+eventManager.registerEvent('projectItemAdded');
+eventManager.registerEvent('projectItemClicked');
+eventManager.registerEvent('projectItemActive');
+eventManager.registerEvent('projectItemDeleted');
+
+
+// SETTING HANDLERS FOR EVENTS
+try {
+  eventManager.registerActionToEvent("projectItemAdded",(id) => {
+      projectManager.setActiveProject(id);
+  });
+
+  eventManager.registerActionToEvent("projectItemClicked", (id) => {
+      projectManager.setActiveProject(id);
+  });
+
+  eventManager.registerActionToEvent("projectItemActive", (id) => {
+      const todos = projectManager.getTodos(id);
+      console.log('setting todos', todos);
+  });
+
+  eventManager.registerActionToEvent("projectItemDeleted", (id) => {
+      projectManager.removeProject(id);
+  });
+} catch (error) {
+  alert(error);
 }
-
-function setActiveProject(projectItem)
-{
-    // RESET ANY CURRENTLY ACTIVE PROJECT ITEM
-    projectItemList.forEach(item => {
-        item.className = "projectItem";
-    });
-    console.log('setting active project');
-
-    projectItem.classList.add('active');
-}
-
-export function getNumberOfProjects()
-{
-    return projectItemList.length;
-}
-
-updateProjectItemList();
