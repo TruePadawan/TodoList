@@ -28,13 +28,13 @@ export class Project {
     #_init()
     {
         this.#node.addEventListener("click", () => {
-            eventManager.triggerActions('projectItemClicked', this.#id);
+            eventManager.triggerEvent('projectItemClicked', [this.#id]);
         });
     
         let deleteProjectBtn = this.#node.querySelector(".deleteProjectItem");
         deleteProjectBtn.addEventListener("click", (e) => {
             this.#node.remove();
-            eventManager.triggerActions('projectItemDeleted', [this.#id]);
+            eventManager.triggerEvent('projectItemDeleted', [this.#id]);
             
             e.stopPropagation();
         });
@@ -72,3 +72,8 @@ try {
 } catch (error) {
   alert(error);
 }
+
+const newProjectBtn = document.getElementById('newProjectBtn');
+newProjectBtn.addEventListener('click', () => {
+    projectManager.addProject();
+});
