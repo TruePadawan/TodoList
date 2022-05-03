@@ -1,5 +1,5 @@
-import { eventManager } from "../../handlers/eventManager";
-import { projectManager } from "./projectManager";
+import { eventManager } from "../../managers/eventManager";
+import { projectManager } from "../../managers/projectManager";
 import { v4 as uuidv4 } from 'uuid';
 import "./projects.css";
 
