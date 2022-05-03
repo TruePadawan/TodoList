@@ -10,17 +10,12 @@ class ProjectManager {
     this.#projectsList = {};
     console.log("creating project manager");
   }
-
-  #createProjectItem(title) {
-    const projectItem = new Project(title);
-    return projectItem;
-  }
-
+  
   addProject(title = "Untitled") {
-    const project = this.#createProjectItem(title);
+    const project = new Project(title);
     this.#projectsContainer.appendChild(project.getNode());
 
-    // eventManager.triggerActions("projectAdded");
+    eventManager.triggerEvent("projectItemAdded", [project.getID()]);
   }
 
   updateProjectList(projectItem) {
@@ -31,6 +26,32 @@ class ProjectManager {
       todos: projectItem.todos,
       node: projectItem.getNode(),
     };
+  }
+
+  setActiveProject(projectID) {
+    for (const id in this.#projectsList) {
+      let itemNode = this.#projectsList[id].node;
+      if (id === projectID)
+      {
+        itemNode.classList.add('active');
+        eventManager.triggerEvent('projectItemActive');
+        return;
+      }
+      itemNode.className = "projectItem";
+    }
+  }
+
+  getTodos(projectID){
+    for (const id in this.#projectsList)
+    {
+      if (id === projectID)
+      {
+        let projectTodos = this.#projectsList[id].todos;
+        return projectTodos;
+      }
+    }
+
+    throw `Project with ID [${projectID}] doesn't exist`;
   }
 
   numberOfProjects() {
