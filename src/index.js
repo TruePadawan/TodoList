@@ -1,6 +1,7 @@
 import "./init.css";
 import "./main.css";
 import "./logic/sidebar/sidebar";
+import "./logic/projects/projects";
 import { projectManager } from "./logic/projects/projectManager";
 // import  { getNumberOfProjects, addNewProjectItem } from "./logic/projects/projects";
 
