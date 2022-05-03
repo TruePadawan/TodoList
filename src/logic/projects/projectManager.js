@@ -13,8 +13,9 @@ class ProjectManager {
 
   addProject(title = "Untitled") {
     const project = new Project(title);
-    this.#projectsContainer.appendChild(project.getNode());
+    this.#updateProjectList(project);
 
+    this.#projectsContainer.appendChild(project.getNode());
     eventManager.triggerEvent("projectItemAdded", [project.getID()]);
   }
 
@@ -34,7 +35,7 @@ class ProjectManager {
     throw `Project with ID [${projectID}] doesn't exist`;
   }
 
-  updateProjectList(projectItem) {
+  #updateProjectList(projectItem) {
     const projectID = projectItem.getID();
 
     this.#projectsList[projectID] = {
@@ -59,14 +60,18 @@ class ProjectManager {
 
         itemNode.className = "projectItem";
       }
-      
+
       return;
     }
 
-    const firstProjectID = Object.keys(this.#projectsList)[0];
-    const projectNode = this.#projectsList[firstProjectID].node;
-    projectNode.classList.add("active");
-    eventManager.triggerEvent("projectItemActive", [firstProjectID]);
+    const projectIDs = Object.keys(this.#projectsList);
+    if (projectIDs.length > 0) // MAKING SURE THERE IS AT LEAST ONE PROJECT
+    {
+      const firstProjectID = projectIDs[0];
+      const projectNode = this.#projectsList[firstProjectID].node;
+      projectNode.classList.add("active");
+      eventManager.triggerEvent("projectItemActive", [firstProjectID]);
+    }
   }
 
   getTodos(projectID) {
