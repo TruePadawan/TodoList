@@ -22,10 +22,10 @@ class EventManager {
             return;
         }
 
-        throw "Event Not Registered";
+        throw `Event ${eventName} Not Registered`;
     }
 
-    triggerActions(eventName, params)
+    triggerEvent(eventName, params)
     {
         const isEventRegistered = this.#events.hasOwnProperty(eventName);
 
@@ -38,7 +38,7 @@ class EventManager {
           });
         }
 
-        throw "Event Not Registered";
+        throw `Event ${eventName} Not Registered`;
     }
 }
 
