@@ -1,7 +1,9 @@
 import "./init.css";
 import "./main.css";
 import "./logic/sidebar/sidebar";
+import "./logic/popup/popup";
 import "./logic/projects/projects";
+import "./logic/todos/todos";
 import { projectManager } from "./managers/projectManager";
 
 // INIT
