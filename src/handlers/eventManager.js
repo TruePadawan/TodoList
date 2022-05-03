@@ -36,6 +36,7 @@ class EventManager {
           eventActions.forEach(action => {
             action(...params);
           });
+          return;
         }
 
         throw `Event ${eventName} Not Registered`;
