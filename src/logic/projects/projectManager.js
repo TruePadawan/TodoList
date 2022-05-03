@@ -18,6 +18,18 @@ class ProjectManager {
     eventManager.triggerEvent("projectItemAdded", [project.getID()]);
   }
 
+  removeProject(projectID) {
+    for (const id in this.#projectsList)
+    {
+      if (id === projectID)
+      {
+        delete this.#projectsList[projectID];
+        return;
+      }
+    }
+    throw `Project with ID [${projectID}] doesn't exist`;
+  }
+
   updateProjectList(projectItem) {
     const projectID = projectItem.getID();
 
@@ -29,7 +41,8 @@ class ProjectManager {
   }
 
   setActiveProject(projectID) {
-    for (const id in this.#projectsList) {
+    for (const id in this.#projectsList)
+    {
       let itemNode = this.#projectsList[id].node;
       if (id === projectID)
       {
