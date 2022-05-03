@@ -48,20 +48,20 @@ class ProjectManager {
   setActiveProject(projectID = "") {
     if (projectID !== "")
     {
-      for (const id in this.#projectsList)
+      if (this.#projectsList.hasOwnProperty(projectID))
       {
-        let itemNode = this.#projectsList[id].node;
-        if (id === projectID)
+        for (const id in this.#projectsList)
         {
-          itemNode.classList.add("active");
-          eventManager.triggerEvent("projectItemActive", [id]);
-          return;
+          let itemNode = this.#projectsList[id].node;
+          itemNode.className = "projectItem";
         }
+        const activeProject = this.#projectsList[projectID].node;
+        activeProject.classList.add('active');
+        eventManager.triggerEvent("projectItemActive", [projectID]);
 
-        itemNode.className = "projectItem";
+        return;
       }
-
-      return;
+      throw `Error - Project with ID ${projectID} not found`;
     }
 
     const projectIDs = Object.keys(this.#projectsList);
