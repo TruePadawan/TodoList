@@ -61,14 +61,14 @@
         <form>
             <span class="dialogTitle">New Item</span>
             <div class="formInputFields">
-                <input type="text" placeholder="Review Waves in Physics">
-                <input type="date">
-                <select id="selectItemPriority">
+                <input type="text" placeholder="Review Waves in Physics" required>
+                <input type="date" required>
+                <select id="selectItemPriority" required>
                     <option value="low_pr" selected>Low Priority</option>
                     <option value="med_pr">Medium Priority</option>
                     <option value="high_pr">High Priority</option>
                 </select>
-                <textarea placeholder="Review waves in physics due to upcoming test"></textarea>
+                <textarea placeholder="Review waves in physics due to upcoming test" required></textarea>
             </div>
             <button class="formBtn addTodoItemBtn" type="submit">Add</button>
         </form>
