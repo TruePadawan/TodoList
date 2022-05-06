@@ -9,11 +9,12 @@ class TodoDisplay {
 
     load(project) {
         // LOAD PROJECT'S TODO DATA
+        this.#projectTitleElement.textContent = project.title;
     }
 
-    setCurrentProjectTitle(title) {
-        this.#projectTitleElement.textContent = title;
-    }
+    // setCurrentProjectTitle(title) {
+    //     this.#projectTitleElement.textContent = title;
+    // }
 }
 
 
