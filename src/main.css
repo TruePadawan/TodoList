@@ -119,13 +119,17 @@ main {
     margin-bottom: 4px;
 }
 
-.todoItem>button {
+.showTodoDetailsBtn {
     background-color: #feffdf;
     border-radius: 8px;
     padding: 5px;
 
     font-weight: 550;
     font-size: 18px;
+}
+
+.showTodoDetailsBtn:hover {
+    background-color: #f6f7e8;
 }
 
 .priority_high {
@@ -140,6 +144,31 @@ main {
     background-color: #FFD8A9;
 }
 
+/* DIALOG */
+dialog {
+    background-color: rgba(88, 88, 88, 0.507);
+    position: absolute;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    justify-content: center;
+    align-items: center;
+}
+
+dialog > form {
+    box-shadow: 1px 3px 10px rgba(49, 49, 49, 0.452);
+    resize: both;
+    overflow: hidden;
+
+    border-radius: 8px;
+    background-color: #FFD7A7;
+    
+    width: min(98%, 40rem);
+    padding: 14px;
+}
+
 dialog * {
     font-family: inherit;
     font-size: medium;
@@ -150,31 +179,7 @@ dialog input {
     border-bottom: 2px solid rgb(95, 95, 95);
 }
 
-.createTodoItemDialog {
-    background-color: rgba(88, 88, 88, 0.507);
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-
-    /* display: flex; */
-    justify-content: center;
-    align-items: center;
-}
-
-.createTodoItemDialog>form {
-    box-shadow: 1px 3px 10px rgba(49, 49, 49, 0.452);
-    resize: both;
-    overflow: hidden;
-
-    border-radius: 8px;
-    background-color: #dfbc95;
-    
-    width: min(98%, 40rem);
-    padding: 14px;
-}
-
-.newTodoFormTitle {
+.dialogTitle {
     display: block;
     text-align: center;
     font-weight: bold;
@@ -188,11 +193,59 @@ dialog input {
     margin-bottom: 10px;
 }
 
-form > button {
+.formBtn {
     border-radius: 8px;
     width: 100%;
     height: 2rem;
+    font-weight: bold;
+}
+
+.addTodoItemBtn {
     background-color: lightgreen;
+}
+
+.addTodoItemBtn:hover {
+    background-color: rgb(132, 197, 132);
+}
+
+#selectItemPriority {
+    border: none;
+    background-color: #FBB45F;
+    padding: 5px 0;
+}
+
+#selectItemPriority:focus {
+    outline: none;
+}
+
+#selectItemPriority > option {
+    margin: 5px 0;
+}
+
+.saveBtn {
+    background-color: #7FDB88;
+    margin-bottom: 8px;
+}
+
+.statusBtn {
+    background-color: #7E8BF9;
+    margin-bottom: 8px;
+}
+
+.deleteBtn {
+    background-color: #FF5757;
+}
+
+.saveBtn:hover {
+    background-color: rgb(132, 197, 132);
+}
+
+.statusBtn:hover {
+    background-color: #7179c2;
+}
+
+.deleteBtn:hover {
+    background-color: #d45353;
 }
 
 @media screen and (max-width: 700px) {
