@@ -40,7 +40,13 @@
             <h1 id="currentProjectTitle">Default</h1>
             <button id="newItemBtn">New Item</button>
             <ul class="todos">
-                <li class="todoItem priority_high">
+                <template id="todoItemTemplate">
+                    <li class="todoItem">
+                        <span class="todoItem_title"></span>
+                        <button class="showTodoDetailsBtn"></button>
+                    </li>    
+                </template>
+                <!-- <li class="todoItem priority_high">
                     <span class="todoItem_title">High Priority Item</span>
                     <button class="showTodoDetailsBtn">Details</button>
                 </li>
@@ -51,7 +57,7 @@
                 <li class="todoItem priority_low">
                     <span class="todoItem_title">Low Priority Item</span>
                     <button class="showTodoDetailsBtn">Details</button>
-                </li>
+                </li> -->
             </ul>
         </div>
     </main>
