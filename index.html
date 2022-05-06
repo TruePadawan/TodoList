@@ -55,15 +55,42 @@
             </ul>
         </div>
     </main>
+
+    <!-- POPUP FOR CREATING TODO ITEMS -->
     <dialog class="createTodoItemDialog">
         <form>
-            <span class="newTodoFormTitle">New Item</span>
+            <span class="dialogTitle">New Item</span>
             <div class="formInputFields">
                 <input type="text" placeholder="Review Waves in Physics">
                 <input type="date">
+                <select id="selectItemPriority">
+                    <option value="low_pr" selected>Low Priority</option>
+                    <option value="med_pr">Medium Priority</option>
+                    <option value="high_pr">High Priority</option>
+                </select>
                 <textarea placeholder="Review waves in physics due to upcoming test"></textarea>
             </div>
-            <button type="submit">Add</button>
+            <button class="formBtn addTodoItemBtn" type="submit">Add</button>
+        </form>
+    </dialog>
+
+    <!-- TODO ITEM DETAILS POPUP -->
+    <dialog class="todoItemDetailsDialog">
+        <form>
+            <span class="dialogTitle">Details</span>
+            <div class="formInputFields">
+                <input type="text" class="todoItemTitle">
+                <input type="date" class="todoItemDueDate">
+                <select id="selectItemPriority">
+                    <option value="low_pr" selected>Low Priority</option>
+                    <option value="med_pr">Medium Priority</option>
+                    <option value="high_pr">High Priority</option>
+                </select>
+                <textarea class="todoItemDescription"></textarea>
+            </div>
+            <button class="formBtn saveBtn" type="button">Save</button>
+            <button class="formBtn statusBtn" type="button">Mark Done/Not Done</button>
+            <button class="formBtn deleteBtn" type="button">Delete</button>
         </form>
     </dialog>
 </body>
