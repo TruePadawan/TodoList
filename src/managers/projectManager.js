@@ -1,14 +1,13 @@
 import { Project } from "../logic/projects/projects";
 import { eventManager } from "./eventManager";
+import { projectsList } from "../global_data";
 
 class ProjectManager {
   #projectsContainer;
-  #projectsList;
+  #activeProjectID;
 
   constructor() {
     this.#projectsContainer = document.querySelector(".projects");
-    this.#projectsList = {};
-    console.log("creating project manager");
   }
 
   addProject(title = "Untitled") {
@@ -20,13 +19,13 @@ class ProjectManager {
   }
 
   removeProject(projectID) {
-    for (const id in this.#projectsList) {
+    for (const id in projectsList) {
       if (id === projectID) {
-        // IF THE DELETED PROJECT WAS THE CURRENTLY ACTIVE PROJECT, SET A NEW ACTIVE PROJECT
-        let projectNode = this.#projectsList[id].node;
-        delete this.#projectsList[projectID];
+        let projectNode = projectsList[id].node;
+        delete projectsList[projectID];
 
-        if (projectNode.classList.contains("active")) {
+        // IF THE DELETED PROJECT WAS THE CURRENTLY ACTIVE PROJECT, SET A NEW ACTIVE PROJECT
+        if (projectNode.classList.contains("active")) { 
           this.setActiveProject();
         }
         return;
@@ -38,7 +37,7 @@ class ProjectManager {
   #updateProjectList(projectItem) {
     const projectID = projectItem.getID();
 
-    this.#projectsList[projectID] = {
+    projectsList[projectID] = {
       title: projectItem.title,
       todos: projectItem.todos,
       node: projectItem.getNode(),
@@ -48,15 +47,17 @@ class ProjectManager {
   setActiveProject(projectID = "") {
     if (projectID !== "")
     {
-      if (this.#projectsList.hasOwnProperty(projectID))
+      if (projectsList.hasOwnProperty(projectID)) // CHECK IF A PROJECT, WITH THE ID CONTAINED IN 'PROJECTID', EXISTS
       {
-        for (const id in this.#projectsList)
+        for (const id in projectsList)
         {
-          let itemNode = this.#projectsList[id].node;
+          let itemNode = projectsList[id].node;
           itemNode.className = "projectItem";
         }
-        const activeProject = this.#projectsList[projectID].node;
-        activeProject.classList.add('active');
+        this.#activeProjectID = projectID;
+
+        const activeProject = projectsList[projectID];
+        activeProject.node.classList.add('active');
         eventManager.triggerEvent("projectItemActive", [projectID]);
 
         return;
@@ -64,20 +65,25 @@ class ProjectManager {
       throw `Error - Project with ID ${projectID} not found`;
     }
 
-    const projectIDs = Object.keys(this.#projectsList);
+    // MAKE THE FIRST PROJECT ITEM THE DEFAULT ACTIVE PROJECT
+    const projectIDs = Object.keys(projectsList);
     if (projectIDs.length > 0) // MAKING SURE THERE IS AT LEAST ONE PROJECT
     {
       const firstProjectID = projectIDs[0];
-      const projectNode = this.#projectsList[firstProjectID].node;
+      this.#activeProjectID = projectIDs[0];
+
+      const projectNode = projectsList[firstProjectID].node;
       projectNode.classList.add("active");
       eventManager.triggerEvent("projectItemActive", [firstProjectID]);
     }
   }
 
+  getActiveProjectID = () => this.#activeProjectID;
+
   getTodos(projectID) {
-    for (const id in this.#projectsList) {
+    for (const id in projectsList) {
       if (id === projectID) {
-        let projectTodos = this.#projectsList[id].todos;
+        let projectTodos = projectsList[id].todos;
         return projectTodos;
       }
     }
@@ -86,7 +92,7 @@ class ProjectManager {
   }
 
   numberOfProjects() {
-    return Object.keys(this.#projectsList).length;
+    return Object.keys(projectsList).length;
   }
 }
 
