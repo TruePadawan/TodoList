@@ -146,6 +146,8 @@ main {
 
 /* DIALOG */
 dialog {
+    border: none;
+    
     background-color: rgba(88, 88, 88, 0.507);
     position: absolute;
     top: 0;
@@ -208,18 +210,14 @@ dialog input {
     background-color: rgb(132, 197, 132);
 }
 
-#selectItemPriority {
+.selectItemPriority {
     border: none;
     background-color: #FBB45F;
     padding: 5px 0;
 }
 
-#selectItemPriority:focus {
+.selectItemPriority:focus {
     outline: none;
-}
-
-#selectItemPriority > option {
-    margin: 5px 0;
 }
 
 .saveBtn {
