@@ -39,13 +39,13 @@
         <section aria-labelledby="currentProjectTitle" class="container">
             <h1 id="currentProjectTitle">Default</h1>
             <button id="newItemBtn">New Item</button>
+            <template id="todoItemTemplate">
+                <li class="todoItem">
+                    <span class="todoItem_title"></span>
+                    <button class="showTodoDetailsBtn">Details</button>
+                </li>    
+            </template>
             <ul class="todos">
-                <template id="todoItemTemplate">
-                    <li class="todoItem">
-                        <span class="todoItem_title"></span>
-                        <button class="showTodoDetailsBtn"></button>
-                    </li>    
-                </template>
                 <!-- <li class="todoItem priority_high">
                     <span class="todoItem_title">High Priority Item</span>
                     <button class="showTodoDetailsBtn">Details</button>
