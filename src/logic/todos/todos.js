@@ -1,3 +1,9 @@
+import { projectsList } from '../../global_data';
+import { todoDisplay } from './todoDisplay';
+import { eventManager } from '../../managers/eventManager';
+import { projectManager } from '../../managers/projectManager';
+import { todoManager } from '../../managers/todoManager';
+
 const todoItemDetailsDialog = document.querySelector('.todoItemDetailsDialog');
 const todoItemTemplate = document.getElementById('todoItemTemplate');
 
@@ -40,19 +46,45 @@ class TodoItem {
 
 
 
-const forms = document.querySelectorAll('dialog > form');
 const newTodoItem = document.getElementById('newItemBtn');
-
 const createTodoItemDialog = document.querySelector('.createTodoItemDialog');
+const createTodoForm = createTodoItemDialog.querySelector('form');
 
+// EVENTS 
+eventManager.registerEvent('todoItemAdded');
+
+eventManager.registerActionToEvent('todoItemAdded', (projectID) => {
+    const project = projectsList[projectID];
+    todoDisplay.load(project);
+});
+
+function createTodoItem(props)
+{
+    let todoItem = {
+        title: props.title,
+        dueDate: props.dueDate,
+        priority: props.priority,
+        desc: props.desc
+    }
+
+    return todoItem;
+}
 
 // INIT
 newTodoItem.addEventListener('click', () => {
     createTodoItemDialog.style.display = "flex";
 });
 
-forms.forEach(form => {
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-    });
+createTodoForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    let title = createTodoItemDialog.querySelector('.todoItemTitle').value;
+    let dueDate = createTodoItemDialog.querySelector('.todoItemDueDate').value;
+    let priority = createTodoItemDialog.querySelector('.selectItemPriority').value;
+    let desc = createTodoItemDialog.querySelector('.todoItemDescription').value;
+
+    const item = createTodoItem({title, dueDate, priority, desc});
+    todoManager.addTodoItem(item,projectManager.getActiveProjectID());
+
+    createTodoItemDialog.style.display = "none";
 });
