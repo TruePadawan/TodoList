@@ -9,9 +9,9 @@ export class Project {
     #id;
     #node;
     title = '';
-    todos = [];
+    todos = {};
 
-    constructor(_title, _todos = [])
+    constructor(_title, _todos = {})
     {
         this.#id = uuidv4();
         this.title = _title;
