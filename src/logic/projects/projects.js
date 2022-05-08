@@ -1,7 +1,7 @@
 import { eventManager } from "../../managers/eventManager";
 import { projectManager } from "../../managers/projectManager";
 import { v4 as uuidv4 } from 'uuid';
-import { projectsList } from "../../global_data";
+import { projectsList, resetTodosContainer } from "../../global_data";
 import { todoDisplay } from "../todos/todoDisplay";
 import "./projects.css";
 
@@ -57,6 +57,7 @@ eventManager.registerEvent('projectItemClicked');
 eventManager.registerEvent('projectItemActive');
 eventManager.registerEvent('projectItemDeleted');
 eventManager.registerEvent('projectItemTitleUpdated');
+eventManager.registerEvent('allProjectsDeleted');
 
 
 // SETTING HANDLERS FOR EVENTS
@@ -88,6 +89,10 @@ try {
               todoDisplay.setProjectTitle(title);
           }
       }
+  });
+
+  eventManager.registerActionToEvent("allProjectsDeleted", () => {
+      resetTodosContainer();
   });
 
 } catch (error) {
