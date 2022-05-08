@@ -1,7 +1,7 @@
-import { v4 as uuidv4 } from "uuid";
 import { eventManager } from "./eventManager";
 import { projectsList } from "../global_data";
 
+const todoItemDetailsDialog = document.querySelector('.todoItemDetailsDialog');
 class TodoManager {
     constructor() {  
     }
@@ -11,8 +11,6 @@ class TodoManager {
         if(projectID in projectsList)
         {
             projectsList[projectID].todos[todoItem.id] = todoItem;
-            // let title = projectsList[projectID].title;
-            // let todos = projectsList[projectID].todos;
             eventManager.triggerEvent('todoListModified', [projectID]);
         }
     };
@@ -26,7 +24,7 @@ class TodoManager {
     }
 
     showTodoDetails = (todoItemID) => {
-
+        todoItemDetailsDialog.style.display = "flex";
     };
 }
 
