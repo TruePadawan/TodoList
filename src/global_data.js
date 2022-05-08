@@ -6,10 +6,9 @@ export function resetElements(elements) {
     });
 }
 
-export function createTodoItem(props)
-{
+export function createTodoItem(props) {
     let todoItem = {
-        id : props.id,
+        id: props.id,
         title: props.title,
         dueDate: props.dueDate,
         priority: props.priority,
@@ -23,21 +22,21 @@ const todoItemTemplate = document.getElementById('todoItemTemplate');
 
 export function createDOMItem(props) {
     let item = todoItemTemplate.content.firstElementChild.cloneNode(true);
-    item.setAttribute('data-id',props.id);
+    item.setAttribute('data-id', props.id);
     item.classList.add(props.priority);
     item.querySelector('.todoItem_title').textContent = props.title;
 
+    item.querySelector('.showTodoDetailsBtn').addEventListener('click', (e) => {
+        console.log(e.target.closest('.todoItem'));
+    });
     return item;
 }
 
 const todoContainer = document.querySelector('.todos');
 
 export function resetTodosContainer() {
-    let children = todoContainer.children;
-        if (children.length === 0) return;
-
-        for (let i = 0; i < children.length; ++i)
-        {
-            children.item(i).remove();
-        }
+    while(todoContainer.firstElementChild)
+    {
+        todoContainer.removeChild(todoContainer.lastElementChild);
+    }
 }
