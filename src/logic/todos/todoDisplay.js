@@ -43,7 +43,6 @@ class TodoDisplay {
     }
 
     #sortTodoList(todos) {
-        console.log(todos);
         let itemIDs = Object.keys(todos);
 
         // STRUGGLES OF A DEV THAT DOESNT KNOW DS AND ALGO
