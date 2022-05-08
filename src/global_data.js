@@ -12,13 +12,15 @@ export function createTodoItem(props) {
         title: props.title,
         dueDate: props.dueDate,
         priority: props.priority,
-        desc: props.desc
+        desc: props.desc,
+        done : false
     }
 
     return todoItem;
 }
 
 const todoItemTemplate = document.getElementById('todoItemTemplate');
+const todoItemDetailsDialog = document.querySelector('.todoItemDetailsDialog');
 
 export function createDOMItem(props) {
     let item = todoItemTemplate.content.firstElementChild.cloneNode(true);
@@ -27,7 +29,8 @@ export function createDOMItem(props) {
     item.querySelector('.todoItem_title').textContent = props.title;
 
     item.querySelector('.showTodoDetailsBtn').addEventListener('click', (e) => {
-        console.log(e.target.closest('.todoItem'));
+        // console.log(e.target.closest('.todoItem'));
+        todoItemDetailsDialog.style.display = "flex";
     });
     return item;
 }
