@@ -8,9 +8,9 @@ import { todoManager } from '../../managers/todoManager';
 // const todoItemDetailsDialog = document.querySelector('.todoItemDetailsDialog');
 
 // EVENTS 
-eventManager.registerEvent('todoItemAdded');
+eventManager.registerEvent('todoListModified');
 
-eventManager.registerActionToEvent('todoItemAdded', (projectID) => {
+eventManager.registerActionToEvent('todoListModified', (projectID) => {
     const project = projectsList[projectID];
     todoDisplay.load(project);
 });
