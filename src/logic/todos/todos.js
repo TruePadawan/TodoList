@@ -5,8 +5,6 @@ import { eventManager } from '../../managers/eventManager';
 import { projectManager } from '../../managers/projectManager';
 import { todoManager } from '../../managers/todoManager';
 
-// const todoItemDetailsDialog = document.querySelector('.todoItemDetailsDialog');
-
 // EVENTS 
 eventManager.registerEvent('todoListModified');
 
