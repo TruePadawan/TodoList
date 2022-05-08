@@ -21,6 +21,7 @@ class TodoDisplay {
         for (let i = 0; i < sortedTodolist.length; ++i)
         {
             let props = {
+                id : sortedTodolist[i].id,
                 title : sortedTodolist[i].title,
                 priority : sortedTodolist[i].priority
             };
@@ -32,6 +33,7 @@ class TodoDisplay {
 
     #createDOMItem(props) {
         let item = this.#todoItemTemplate.content.firstElementChild.cloneNode(true);
+        item.setAttribute('data-id',props.id);
         item.classList.add(props.priority);
         item.querySelector('.todoItem_title').textContent = props.title;
 

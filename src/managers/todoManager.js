@@ -9,8 +9,7 @@ class TodoManager {
     addTodoItem = (todoItem, projectID) => {
         if(projectID in projectsList)
         {
-            let id = uuidv4();
-            projectsList[projectID].todos[id] = todoItem;
+            projectsList[projectID].todos[todoItem.id] = todoItem;
             // let title = projectsList[projectID].title;
             // let todos = projectsList[projectID].todos;
             eventManager.triggerEvent('todoItemAdded', [projectID]);
