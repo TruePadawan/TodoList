@@ -9,6 +9,7 @@ export function resetElements(elements) {
 export function createTodoItem(props)
 {
     let todoItem = {
+        id : props.id,
         title: props.title,
         dueDate: props.dueDate,
         priority: props.priority,
