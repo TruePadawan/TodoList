@@ -1,3 +1,6 @@
+import { todoManager } from "./managers/todoManager";
+
+
 export const projectsList = {};
 
 export function resetElements(elements) {
@@ -20,7 +23,6 @@ export function createTodoItem(props) {
 }
 
 const todoItemTemplate = document.getElementById('todoItemTemplate');
-const todoItemDetailsDialog = document.querySelector('.todoItemDetailsDialog');
 
 export function createDOMItem(props) {
     let item = todoItemTemplate.content.firstElementChild.cloneNode(true);
@@ -28,9 +30,10 @@ export function createDOMItem(props) {
     item.classList.add(props.priority);
     item.querySelector('.todoItem_title').textContent = props.title;
 
+
     item.querySelector('.showTodoDetailsBtn').addEventListener('click', (e) => {
-        // console.log(e.target.closest('.todoItem'));
-        todoItemDetailsDialog.style.display = "flex";
+        let itemID = e.target.closest('.todoItem').dataset.id;
+        todoManager.showTodoDetails(itemID);
     });
     return item;
 }
