@@ -42,8 +42,11 @@ createTodoForm.addEventListener('submit', (e) => {
     let desc = descInput.value;
 
     const item = createTodoItem({id, title, dueDate, priority, desc});
-    todoManager.addTodoItem(item,projectManager.getActiveProjectID());
-
+    try {
+        todoManager.addTodoItem(item,projectManager.getActiveProjectID());
+    } catch (error) {
+        alert(error);
+    }
     resetElements([titleInput, dueDateInput, descInput]);
     createTodoItemDialog.style.display = "none";
 });
