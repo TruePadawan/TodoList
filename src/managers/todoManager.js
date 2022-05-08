@@ -7,13 +7,26 @@ class TodoManager {
     }
 
     addTodoItem = (todoItem, projectID) => {
+        if (projectID === "") throw "No Projects Available. Create a project";
         if(projectID in projectsList)
         {
             projectsList[projectID].todos[todoItem.id] = todoItem;
             // let title = projectsList[projectID].title;
             // let todos = projectsList[projectID].todos;
-            eventManager.triggerEvent('todoItemAdded', [projectID]);
+            eventManager.triggerEvent('todoListModified', [projectID]);
         }
+    };
+
+    removeTodoItem = (todoItemID) => {
+
+    }
+
+    updateTodoItem = (todoItemID, newData) => {
+
+    }
+
+    showTodoDetails = (todoItemID) => {
+
     };
 }
 
