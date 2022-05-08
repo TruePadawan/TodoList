@@ -51,6 +51,7 @@ eventManager.registerEvent('projectItemAdded');
 eventManager.registerEvent('projectItemClicked');
 eventManager.registerEvent('projectItemActive');
 eventManager.registerEvent('projectItemDeleted');
+eventManager.registerEvent('projectItemTitleUpdated');
 
 
 // SETTING HANDLERS FOR EVENTS
