@@ -4,7 +4,6 @@ class EventManager {
     constructor()
     {
         this.#events = {};
-        console.log('creating event manager object');
     }
 
     registerEvent(eventName)
