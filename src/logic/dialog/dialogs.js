@@ -1,7 +1,6 @@
 const dialogs = document.querySelectorAll('dialog');
 const forms = document.querySelectorAll('dialog > form');
 
-
 // INIT
 dialogs.forEach(dialog => {
     dialog.addEventListener('click', () => {
@@ -15,3 +14,4 @@ forms.forEach(form => {
         e.stopPropagation();
     });
 });
+
