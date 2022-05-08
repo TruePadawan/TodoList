@@ -76,6 +76,10 @@ class ProjectManager {
       projectNode.classList.add("active");
       eventManager.triggerEvent("projectItemActive", [firstProjectID]);
     }
+    else {
+      this.#activeProjectID = "";
+      eventManager.triggerEvent('allProjectsDeleted', []);
+    }
   }
 
   getActiveProjectID = () => this.#activeProjectID;
