@@ -82,6 +82,11 @@ try {
       if (id in projectsList)
       {
           projectsList[id].title = title;
+
+          if (id === projectManager.getActiveProjectID())
+          {
+              todoDisplay.setProjectTitle(title);
+          }
       }
   });
 
