@@ -13,7 +13,7 @@ class TodoDisplay {
 
     load(projectData) {
         this.#resetTodoContainer();
-        this.#setProjectTitle(projectData.title);
+        this.setProjectTitle(projectData.title);
 
         this.#projectID = projectData.id;
         let sortedTodolist = this.#sortTodoList(projectData.todos);
@@ -38,7 +38,7 @@ class TodoDisplay {
         return item;
     }
 
-    #setProjectTitle(title) {
+    setProjectTitle(title) {
         this.#projectTitleElement.textContent = title;
     }
 
