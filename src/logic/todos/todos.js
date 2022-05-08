@@ -1,4 +1,4 @@
-import { projectsList } from '../../global_data';
+import { projectsList, resetElements, createTodoItem } from '../../global_data';
 import { todoDisplay } from './todoDisplay';
 import { eventManager } from '../../managers/eventManager';
 import { projectManager } from '../../managers/projectManager';
@@ -44,12 +44,6 @@ class TodoItem {
 
 
 
-
-
-const newTodoItem = document.getElementById('newItemBtn');
-const createTodoItemDialog = document.querySelector('.createTodoItemDialog');
-const createTodoForm = createTodoItemDialog.querySelector('form');
-
 // EVENTS 
 eventManager.registerEvent('todoItemAdded');
 
@@ -58,19 +52,17 @@ eventManager.registerActionToEvent('todoItemAdded', (projectID) => {
     todoDisplay.load(project);
 });
 
-function createTodoItem(props)
-{
-    let todoItem = {
-        title: props.title,
-        dueDate: props.dueDate,
-        priority: props.priority,
-        desc: props.desc
-    }
+const createTodoItemDialog = document.querySelector('.createTodoItemDialog');
+const createTodoForm = createTodoItemDialog.querySelector('form');
+const newTodoItem = document.getElementById('newItemBtn');
 
-    return todoItem;
-}
+// CREATE TODO ITEM FORM INPUT FIELDS
+let titleInput = createTodoItemDialog.querySelector('.todoItemTitle');
+let dueDateInput = createTodoItemDialog.querySelector('.todoItemDueDate');
+let priorityInput = createTodoItemDialog.querySelector('.selectItemPriority');
+let descInput = createTodoItemDialog.querySelector('.todoItemDescription');
 
-// INIT
+
 newTodoItem.addEventListener('click', () => {
     createTodoItemDialog.style.display = "flex";
 });
@@ -78,13 +70,14 @@ newTodoItem.addEventListener('click', () => {
 createTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    let title = createTodoItemDialog.querySelector('.todoItemTitle').value;
-    let dueDate = createTodoItemDialog.querySelector('.todoItemDueDate').value;
-    let priority = createTodoItemDialog.querySelector('.selectItemPriority').value;
-    let desc = createTodoItemDialog.querySelector('.todoItemDescription').value;
+    let title = titleInput.value;
+    let dueDate = dueDateInput.value;
+    let priority = priorityInput.value;
+    let desc = descInput.value;
 
     const item = createTodoItem({title, dueDate, priority, desc});
     todoManager.addTodoItem(item,projectManager.getActiveProjectID());
 
+    resetElements([titleInput, dueDateInput, descInput]);
     createTodoItemDialog.style.display = "none";
 });
