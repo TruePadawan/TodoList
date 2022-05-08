@@ -14,7 +14,6 @@ class TodoDisplay {
         this.setProjectTitle(projectData.title);
 
         let sortedTodolist = this.#sortTodoList(projectData.todos);
-
         for (let i = 0; i < sortedTodolist.length; ++i)
         {
             let props = {
