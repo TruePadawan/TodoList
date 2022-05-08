@@ -33,6 +33,11 @@ export class Project {
             eventManager.triggerEvent('projectItemClicked', [this.#id]);
         });
     
+        this.#node.addEventListener('input', (e) => {
+            let updatedTitle = e.target.textContent;
+            eventManager.triggerEvent('projectItemTitleUpdated', [this.#id, updatedTitle]);
+        });
+
         let deleteProjectBtn = this.#node.querySelector(".deleteProjectItem");
         deleteProjectBtn.addEventListener("click", (e) => {
             this.#node.remove();
@@ -72,6 +77,14 @@ try {
   eventManager.registerActionToEvent("projectItemDeleted", (id) => {
       projectManager.removeProject(id);
   });
+
+  eventManager.registerActionToEvent("projectItemTitleUpdated", (id, title) => {
+      if (id in projectsList)
+      {
+          projectsList[id].title = title;
+      }
+  });
+
 } catch (error) {
   alert(error);
 }
