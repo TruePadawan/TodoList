@@ -1,6 +1,8 @@
 import { eventManager } from "../../managers/eventManager";
 import { projectManager } from "../../managers/projectManager";
 import { v4 as uuidv4 } from 'uuid';
+import { projectsList } from "../../global_data";
+import { todoDisplay } from "../todos/todoDisplay";
 import "./projects.css";
 
 const projectItemTemplate = document.getElementById('projectTemplate');
@@ -62,8 +64,8 @@ try {
   });
 
   eventManager.registerActionToEvent("projectItemActive", (id) => {
-      const todos = projectManager.getTodos(id);
-      console.log('setting todos', todos);
+      const project = projectsList[id];
+      todoDisplay.load(project);
   });
 
   eventManager.registerActionToEvent("projectItemDeleted", (id) => {
