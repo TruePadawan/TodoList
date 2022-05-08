@@ -1,48 +1,11 @@
+import { v4 as uuidv4 } from 'uuid';
 import { projectsList, resetElements, createTodoItem } from '../../global_data';
 import { todoDisplay } from './todoDisplay';
 import { eventManager } from '../../managers/eventManager';
 import { projectManager } from '../../managers/projectManager';
 import { todoManager } from '../../managers/todoManager';
 
-const todoItemDetailsDialog = document.querySelector('.todoItemDetailsDialog');
-const todoItemTemplate = document.getElementById('todoItemTemplate');
-
-class TodoItem {
-    title;
-    dueDate;
-    priority;
-    desc;
-    #node;
-
-    constructor(data) {
-        console.log('creating todo item');
-        
-        this.title = data.title;
-        this.dueDate = data.dueDate;
-        this.priority = data.priority;
-        this.desc = data.desc;
-
-        this.#node = this.buildDOMNode();
-    }
-    
-    buildDOMNode = () => {
-        const todoItemDOMNode = todoItemTemplate.content.firstElementChild.cloneNode(true);
-        todoItemDOMNode.querySelector('.todoItem_title').textContent = this.title;
-        todoItemDOMNode.classList.add(this.priority);
-        
-        const todoDetailsBtns = todoItemDOMNode.querySelector('.showTodoDetailsBtn');
-        todoDetailsBtns.addEventListener('click', () => {
-            todoItemDetailsDialog.style.display = "flex";
-        });
-
-        return todoItemDOMNode;
-    }
-}
-
-
-
-
-
+// const todoItemDetailsDialog = document.querySelector('.todoItemDetailsDialog');
 
 // EVENTS 
 eventManager.registerEvent('todoItemAdded');
@@ -51,6 +14,8 @@ eventManager.registerActionToEvent('todoItemAdded', (projectID) => {
     const project = projectsList[projectID];
     todoDisplay.load(project);
 });
+
+
 
 const createTodoItemDialog = document.querySelector('.createTodoItemDialog');
 const createTodoForm = createTodoItemDialog.querySelector('form');
@@ -70,12 +35,13 @@ newTodoItem.addEventListener('click', () => {
 createTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
+    let id = uuidv4();
     let title = titleInput.value;
     let dueDate = dueDateInput.value;
     let priority = priorityInput.value;
     let desc = descInput.value;
 
-    const item = createTodoItem({title, dueDate, priority, desc});
+    const item = createTodoItem({id, title, dueDate, priority, desc});
     todoManager.addTodoItem(item,projectManager.getActiveProjectID());
 
     resetElements([titleInput, dueDateInput, descInput]);
