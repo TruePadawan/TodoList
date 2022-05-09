@@ -19,7 +19,8 @@ class TodoDisplay {
             let props = {
                 id : sortedTodolist[i].id,
                 title : sortedTodolist[i].title,
-                priority : sortedTodolist[i].priority
+                priority : sortedTodolist[i].priority,
+                done : sortedTodolist[i].done
             };
 
             let item = createDOMItem(props);

@@ -29,6 +29,10 @@ export function createDOMItem(props) {
     item.setAttribute('data-id', props.id);
     item.classList.add(props.priority);
     item.querySelector('.todoItem_title').textContent = props.title;
+    if (props.done === true)
+    {
+        item.classList.add('done');
+    }
 
 
     item.querySelector('.showTodoDetailsBtn').addEventListener('click', (e) => {
@@ -41,6 +45,7 @@ export function createDOMItem(props) {
 const todoContainer = document.querySelector('.todos');
 
 export function resetTodosContainer() {
+    document.getElementById('currentProjectTitle').textContent = "";
     while(todoContainer.firstElementChild)
     {
         todoContainer.removeChild(todoContainer.lastElementChild);
