@@ -48,3 +48,47 @@ createTodoForm.addEventListener('submit', (e) => {
     resetElements([titleInput, dueDateInput, descInput]);
     createTodoItemDialog.style.display = "none";
 });
+
+
+// EDITING TODOS
+const todoItemDetailsDialog = document.querySelector('.todoItemDetailsDialog');
+const todoDetailsForm = todoItemDetailsDialog.querySelector('form');
+
+todoItemDetailsDialog.addEventListener('click', () => {
+    todoItemDetailsDialog.removeAttribute('data-id');
+});
+
+todoDetailsForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    let submitter = e.submitter; // BTN THAT TRIGGERED THE SUBMIT EVENT
+    let todoItemID = todoItemDetailsDialog.dataset.id;
+    let actionType = submitter.dataset.type;
+    try
+    {
+        if (actionType === "save")
+        {
+            let title = todoItemDetailsDialog.querySelector('.todoItemTitle').value;
+            let dueDate = todoItemDetailsDialog.querySelector('.todoItemDueDate').value;
+            let priority = todoItemDetailsDialog.querySelector('.selectItemPriority').value;
+            let desc = todoItemDetailsDialog.querySelector('.todoItemDescription').value;
+    
+            let newData = {
+                title, dueDate, priority, desc
+            }
+    
+            todoManager.updateTodoItem(todoItemID,newData);
+        }
+        else if (actionType === "status")
+        {
+            todoManager.toggleTodoItemStatus(todoItemID);
+        }
+        else {
+            todoManager.removeTodoItem(todoItemID);
+        }
+        todoItemDetailsDialog.style.display = "none";
+    }
+    catch (error) {
+        alert(error);
+    }
+});
