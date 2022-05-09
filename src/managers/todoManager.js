@@ -58,14 +58,10 @@ class TodoManager {
 
         if (todoItemID in projectsList[currentProjectID].todos)
         {
-            // UPDATE THE STATUS IN MEMORY AND DOM
             let isTodoItemDone = projectsList[currentProjectID].todos[todoItemID].done
             projectsList[currentProjectID].todos[todoItemID].done = !isTodoItemDone;
 
             eventManager.triggerEvent('todoListModified', [currentProjectID]);
-
-            // let todoItem = document.querySelector(`.todoItem[data-id='${todoItemID}']`);
-            // todoItem.classList.toggle('done');
             return;
         }
         throw `todoItem with ID - ${todoItemID} not found`;
