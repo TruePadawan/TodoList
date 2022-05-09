@@ -105,6 +105,10 @@ main {
     gap: 1.5rem;
 }
 
+.done > .todoItem_title {
+    text-decoration: line-through;
+}
+
 .todoItem {
     padding: 8px 5px 5px 5px;
     border-radius: 8px;
