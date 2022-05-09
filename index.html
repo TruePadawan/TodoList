@@ -55,14 +55,14 @@
         <form>
             <span class="dialogTitle">New Item</span>
             <div class="formInputFields">
-                <input type="text" placeholder="Review Waves in Physics" required class="todoItemTitle">
+                <input type="text" class="todoItemTitle" placeholder="Review Waves in Physics" required minlength="2">
                 <input type="date" required class="todoItemDueDate">
                 <select class="selectItemPriority" required>
                     <option value="priority_low" selected>Low Priority</option>
                     <option value="priority_med">Medium Priority</option>
                     <option value="priority_high">High Priority</option>
                 </select>
-                <textarea placeholder="Review waves in physics due to upcoming test" required class="todoItemDescription"></textarea>
+                <textarea placeholder="Review waves in physics due to upcoming test" required class="todoItemDescription" minlength="2"></textarea>
             </div>
             <button class="formBtn addTodoItemBtn" type="submit">Add</button>
         </form>
@@ -73,18 +73,18 @@
         <form>
             <span class="dialogTitle">Details</span>
             <div class="formInputFields">
-                <input type="text" class="todoItemTitle">
-                <input type="date" class="todoItemDueDate">
-                <select class="selectItemPriority">
+                <input type="text" class="todoItemTitle" minlength="2" required>
+                <input type="date" class="todoItemDueDate" required>
+                <select class="selectItemPriority" required>
                     <option value="priority_low" selected>Low Priority</option>
                     <option value="priority_med">Medium Priority</option>
                     <option value="priority_high">High Priority</option>
                 </select>
-                <textarea class="todoItemDescription"></textarea>
+                <textarea class="todoItemDescription" minlength="2" required></textarea>
             </div>
-            <button class="formBtn saveBtn" type="button">Save</button>
-            <button class="formBtn statusBtn" type="button">Mark Done/Not Done</button>
-            <button class="formBtn deleteBtn" type="button">Delete</button>
+            <button class="formBtn saveBtn" data-type="save">Save</button>
+            <button class="formBtn statusBtn" data-type="status">Mark Done/Not Done</button>
+            <button class="formBtn deleteBtn" data-type="delete">Delete</button>
         </form>
     </dialog>
 </body>
