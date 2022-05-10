@@ -9,6 +9,7 @@ import { todoManager } from '../../managers/todoManager';
 eventManager.registerEvent('todoListModified');
 
 eventManager.registerActionToEvent('todoListModified', (projectID) => {
+    eventManager.triggerEvent('projectsListModified');
     const project = projectsList[projectID];
     todoDisplay.load(project);
 });

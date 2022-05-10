@@ -1,5 +1,6 @@
 import { Project } from "../logic/projects/projects";
 import { eventManager } from "./eventManager";
+import { storeProjectDataLocally } from "./dataManager";
 import { projectsContainer, projectsList, createDOMProjectItem, getProjectDOMCounterpart } from "../global_data";
 
 class ProjectManager {
@@ -23,6 +24,7 @@ class ProjectManager {
       if (id === projectID) {
         let projectNode = getProjectDOMCounterpart(id);
         delete projectsList[projectID];
+        eventManager.triggerEvent('projectsListModified');
 
         // IF THE DELETED PROJECT WAS THE CURRENTLY ACTIVE PROJECT, SET A NEW ACTIVE PROJECT
         if (projectNode.classList.contains("active")) { 
@@ -41,6 +43,8 @@ class ProjectManager {
       title: projectItem.title,
       todos: projectItem.todos,
     };
+
+    storeProjectDataLocally(projectsList);
   }
 
   setActiveProject(projectID = "") {
