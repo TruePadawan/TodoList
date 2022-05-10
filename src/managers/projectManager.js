@@ -1,4 +1,4 @@
-import { projectsList } from "../global_data";
+import { projectsList, createProjectItem } from "../global_data";
 import { Project } from "../logic/projects/projects";
 
 import { projectDisplay } from "../logic/projects/projectsDisplay";
@@ -12,10 +12,12 @@ class ProjectManager {
   constructor() {
   }
 
-  addProject(title = "Untitled") {
-    const project = new Project(title);
-    const projectID = project.getID();
-
+  addProject(project = {}) {
+    if(Object.keys(project).length === 0)
+    {
+      project = createProjectItem("Untitled");
+    }
+    const projectID = project.id;
     projectDisplay.addProjectToDOM(projectID, project.title);
     this.#updateProjectList(project);
     
@@ -25,12 +27,14 @@ class ProjectManager {
   removeProject(projectID) {
     for (const id in projectsList) {
       if (id === projectID) {
-        delete projectsList[projectID];
+        delete projectsList[id];
         
-        // IF THE TO-BE DELETED PROJECT WAS THE CURRENTLY ACTIVE PROJECT, SET A NEW ACTIVE PROJECT
-        if (projectDisplay.isProjectActive(projectID)) { 
+        // IF THE DELETED PROJECT WAS THE CURRENTLY ACTIVE PROJECT, SET A NEW ACTIVE PROJECT
+        if (projectDisplay.isProjectActive(id)) { 
           this.setActiveProject();
         }
+        projectDisplay.removeProjectFromDOM(id);
+
         return;
       }
     }
@@ -38,12 +42,7 @@ class ProjectManager {
   }
 
   #updateProjectList(projectItem) {
-    const projectID = projectItem.getID();
-
-    projectsList[projectID] = {
-      title: projectItem.title,
-      todos: projectItem.todos,
-    };
+    projectsList[projectItem.id] = projectItem;
   }
 
   setActiveProject(projectID = "") {
