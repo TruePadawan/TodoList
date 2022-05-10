@@ -1,27 +1,27 @@
 import { Project } from "../logic/projects/projects";
 import { eventManager } from "./eventManager";
-import { projectsList } from "../global_data";
+import { projectsContainer, projectsList, createDOMProjectItem, getProjectDOMCounterpart } from "../global_data";
 
 class ProjectManager {
-  #projectsContainer;
   #activeProjectID;
 
   constructor() {
-    this.#projectsContainer = document.querySelector(".projects");
   }
 
   addProject(title = "Untitled") {
     const project = new Project(title);
-    this.#updateProjectList(project);
+    const projectID = project.getID();
+    const projectDOMItem = createDOMProjectItem({ id : projectID, title });
 
-    this.#projectsContainer.appendChild(project.getNode());
-    eventManager.triggerEvent("projectItemAdded", [project.getID()]);
+    projectsContainer.appendChild(projectDOMItem);
+    this.#updateProjectList(project);
+    eventManager.triggerEvent("projectItemAdded", [ projectID ]);
   }
 
   removeProject(projectID) {
     for (const id in projectsList) {
       if (id === projectID) {
-        let projectNode = projectsList[id].node;
+        let projectNode = getProjectDOMCounterpart(id);
         delete projectsList[projectID];
 
         // IF THE DELETED PROJECT WAS THE CURRENTLY ACTIVE PROJECT, SET A NEW ACTIVE PROJECT
@@ -40,7 +40,6 @@ class ProjectManager {
     projectsList[projectID] = {
       title: projectItem.title,
       todos: projectItem.todos,
-      node: projectItem.getNode(),
     };
   }
 
@@ -49,15 +48,15 @@ class ProjectManager {
     {
       if (projectsList.hasOwnProperty(projectID)) // CHECK IF A PROJECT, WITH THE ID CONTAINED IN 'PROJECTID', EXISTS
       {
-        for (const id in projectsList)
+        for (const id in projectsList) // MAKE ALL PROJECTS INACTIVE INITIALLY
         {
-          let itemNode = projectsList[id].node;
+          let itemNode = getProjectDOMCounterpart(id);
           itemNode.className = "projectItem";
         }
         this.#activeProjectID = projectID;
 
-        const activeProject = projectsList[projectID];
-        activeProject.node.classList.add('active');
+        const activeProjectDOMCounterpart = getProjectDOMCounterpart(projectID);
+        activeProjectDOMCounterpart.classList.add('active');
         eventManager.triggerEvent("projectItemActive", [projectID]);
 
         return;
@@ -72,7 +71,7 @@ class ProjectManager {
       const firstProjectID = projectIDs[0];
       this.#activeProjectID = projectIDs[0];
 
-      const projectNode = projectsList[firstProjectID].node;
+      const projectNode = getProjectDOMCounterpart(firstProjectID);
       projectNode.classList.add("active");
       eventManager.triggerEvent("projectItemActive", [firstProjectID]);
     }

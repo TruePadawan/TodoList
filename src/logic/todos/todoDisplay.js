@@ -1,4 +1,4 @@
-import { createDOMItem, resetTodosContainer } from "../../global_data";
+import { createDOMTodoItem, resetTodosContainer } from "../../global_data";
 /* HANDLE TAKING THE TODO DATA FROM PROJECT ITEMS AND ADDING THEM TO THE DOM */
 class TodoDisplay {
     #projectTitleElement;
@@ -23,7 +23,7 @@ class TodoDisplay {
                 done : sortedTodolist[i].done
             };
 
-            let item = createDOMItem(props);
+            let item = createDOMTodoItem(props);
             this.#todoContainer.appendChild(item);
         }
     }
