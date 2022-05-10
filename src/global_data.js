@@ -54,6 +54,7 @@ export function resetTodosContainer() {
 }
 
 const projectItemTemplate = document.getElementById('projectTemplate');
+
 export function createDOMProjectItem(props) {
     let item = projectItemTemplate.content.firstElementChild.cloneNode(true);
     item.querySelector(".projectTitle").textContent = props.title;
