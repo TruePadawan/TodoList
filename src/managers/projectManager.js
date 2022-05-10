@@ -31,9 +31,6 @@ class ProjectManager {
         if (projectDisplay.isProjectActive(projectID)) { 
           this.setActiveProject();
         }
-        projectDisplay.removeProjectFromDOM(projectID);
-
-        eventManager.triggerEvent('projectsListModified');
         return;
       }
     }
@@ -47,8 +44,6 @@ class ProjectManager {
       title: projectItem.title,
       todos: projectItem.todos,
     };
-
-    storeProjectDataLocally(projectsList);
   }
 
   setActiveProject(projectID = "") {
