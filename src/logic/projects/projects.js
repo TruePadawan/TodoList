@@ -42,6 +42,7 @@ try {
 
     eventManager.registerActionToEvent("projectItemAdded", (id) => {
         projectManager.setActiveProject(id);
+        eventManager.triggerEvent("projectsListModified");
     });
 
     eventManager.registerActionToEvent("projectItemClicked", (id) => {
@@ -55,6 +56,7 @@ try {
 
     eventManager.registerActionToEvent("projectItemDeleted", (id) => {
         projectManager.removeProject(id);
+        eventManager.triggerEvent('projectsListModified');
     });
 
     eventManager.registerActionToEvent("projectItemTitleUpdated", (id, title) => {
