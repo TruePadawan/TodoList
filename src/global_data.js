@@ -1,8 +1,16 @@
+import { v4 as uuidv4 } from "uuid";
 import { eventManager } from "./managers/eventManager";
 import { todoManager } from "./managers/todoManager";
 
 
 export const projectsList = {};
+export const projectsContainer = document.querySelector('.projects');
+export const projectTitleElement = document.getElementById('currentProjectTitle');
+export const todoContainer = document.querySelector('.todos');
+
+const todoItemTemplate = document.getElementById('todoItemTemplate');
+const projectItemTemplate = document.getElementById('projectTemplate');
+
 
 export function resetElements(elements) {
     elements.forEach(element => {
@@ -23,8 +31,6 @@ export function createTodoItem(props) {
     return todoItem;
 }
 
-const todoItemTemplate = document.getElementById('todoItemTemplate');
-
 export function createDOMTodoItem(props) {
     let item = todoItemTemplate.content.firstElementChild.cloneNode(true);
     item.setAttribute('data-id', props.id);
@@ -43,8 +49,6 @@ export function createDOMTodoItem(props) {
     return item;
 }
 
-const todoContainer = document.querySelector('.todos');
-
 export function resetTodosContainer() {
     document.getElementById('currentProjectTitle').textContent = "";
     while(todoContainer.firstElementChild)
@@ -53,7 +57,16 @@ export function resetTodosContainer() {
     }
 }
 
-const projectItemTemplate = document.getElementById('projectTemplate');
+export function createProjectItem(_title) {
+    let projectID = uuidv4();
+    let projectItem = {
+        id : projectID,
+        title : _title,
+        todos : {}
+    }
+
+    return projectItem;
+}
 
 export function createDOMProjectItem(props) {
     let item = projectItemTemplate.content.firstElementChild.cloneNode(true);
@@ -72,16 +85,13 @@ export function createDOMProjectItem(props) {
 
     let deleteProjectBtn = item.querySelector(".deleteProjectItem");
     deleteProjectBtn.addEventListener("click", (e) => {
-        item.remove();
         eventManager.triggerEvent('projectItemDeleted', [props.id]);
-        
         e.stopPropagation();
     });
 
     return item;
 }
 
-export const projectsContainer = document.querySelector('.projects');
 export function getProjectDOMCounterpart(projectID) {
     let node = projectsContainer.querySelector(`.projectItem[data-id='${projectID}']`);
     return node;
