@@ -1,15 +1,13 @@
 import { eventManager } from "../../managers/eventManager";
 import { projectManager } from "../../managers/projectManager";
+import { storeProjectDataLocally } from "../../managers/dataManager";
 import { v4 as uuidv4 } from 'uuid';
 import { projectsList, resetTodosContainer } from "../../global_data";
 import { todoDisplay } from "../todos/todoDisplay";
 import "./projects.css";
 
-const projectItemTemplate = document.getElementById('projectTemplate');
-
 export class Project {
     #id;
-    #node;
     title = '';
     todos = {};
 
@@ -17,37 +15,8 @@ export class Project {
     {
         this.#id = uuidv4();
         this.title = _title;
-        
-        let projectDOMNode = projectItemTemplate.content.firstElementChild.cloneNode(true);
-        projectDOMNode.querySelector(".projectTitle").textContent = _title;
-        
-        this.#node = projectDOMNode;
         this.todos = _todos;
-
-        this.#_init();
     }
-
-    #_init()
-    {
-        this.#node.addEventListener("click", () => {
-            eventManager.triggerEvent('projectItemClicked', [this.#id]);
-        });
-    
-        this.#node.addEventListener('input', (e) => {
-            let updatedTitle = e.target.textContent;
-            eventManager.triggerEvent('projectItemTitleUpdated', [this.#id, updatedTitle]);
-        });
-
-        let deleteProjectBtn = this.#node.querySelector(".deleteProjectItem");
-        deleteProjectBtn.addEventListener("click", (e) => {
-            this.#node.remove();
-            eventManager.triggerEvent('projectItemDeleted', [this.#id]);
-            
-            e.stopPropagation();
-        });
-    }
-    
-    getNode = () => this.#node;
     getID = () => this.#id;
 }
 
@@ -58,45 +27,49 @@ eventManager.registerEvent('projectItemActive');
 eventManager.registerEvent('projectItemDeleted');
 eventManager.registerEvent('projectItemTitleUpdated');
 eventManager.registerEvent('allProjectsDeleted');
+eventManager.registerEvent('projectsListModified');
 
 
 // SETTING HANDLERS FOR EVENTS
 try {
-  eventManager.registerActionToEvent("projectItemAdded",(id) => {
-      projectManager.setActiveProject(id);
-  });
+    eventManager.registerActionToEvent("projectsListModified", () => {
+        storeProjectDataLocally(projectsList);
+    });
 
-  eventManager.registerActionToEvent("projectItemClicked", (id) => {
-      projectManager.setActiveProject(id);
-  });
+    eventManager.registerActionToEvent("projectItemAdded", (id) => {
+        projectManager.setActiveProject(id);
+    });
 
-  eventManager.registerActionToEvent("projectItemActive", (id) => {
-      const project = projectsList[id];
-      todoDisplay.load(project);
-  });
+    eventManager.registerActionToEvent("projectItemClicked", (id) => {
+        projectManager.setActiveProject(id);
+    });
 
-  eventManager.registerActionToEvent("projectItemDeleted", (id) => {
-      projectManager.removeProject(id);
-  });
+    eventManager.registerActionToEvent("projectItemActive", (id) => {
+        const project = projectsList[id];
+        todoDisplay.load(project);
+    });
 
-  eventManager.registerActionToEvent("projectItemTitleUpdated", (id, title) => {
-      if (id in projectsList)
-      {
-          projectsList[id].title = title;
+    eventManager.registerActionToEvent("projectItemDeleted", (id) => {
+        projectManager.removeProject(id);
+    });
 
-          if (id === projectManager.getActiveProjectID())
-          {
-              todoDisplay.setProjectTitle(title);
-          }
-      }
-  });
+    eventManager.registerActionToEvent("projectItemTitleUpdated", (id, title) => {
+        if (id in projectsList) {
+            projectsList[id].title = title;
+            storeProjectDataLocally(projectsList);
 
-  eventManager.registerActionToEvent("allProjectsDeleted", () => {
-      resetTodosContainer();
-  });
+            if (id === projectManager.getActiveProjectID()) {
+                todoDisplay.setProjectTitle(title);
+            }
+        }
+    });
+
+    eventManager.registerActionToEvent("allProjectsDeleted", () => {
+        resetTodosContainer();
+    });
 
 } catch (error) {
-  alert(error);
+    alert(error);
 }
 
 const newProjectBtn = document.getElementById('newProjectBtn');
