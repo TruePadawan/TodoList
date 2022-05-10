@@ -1,7 +1,10 @@
+import { projectsList } from "../global_data";
 import { Project } from "../logic/projects/projects";
+
+import { projectDisplay } from "../logic/projects/projectsDisplay";
+
 import { eventManager } from "./eventManager";
 import { storeProjectDataLocally } from "./dataManager";
-import { projectsContainer, projectsList, createDOMProjectItem, getProjectDOMCounterpart } from "../global_data";
 
 class ProjectManager {
   #activeProjectID;
@@ -12,24 +15,25 @@ class ProjectManager {
   addProject(title = "Untitled") {
     const project = new Project(title);
     const projectID = project.getID();
-    const projectDOMItem = createDOMProjectItem({ id : projectID, title });
 
-    projectsContainer.appendChild(projectDOMItem);
+    projectDisplay.addProjectToDOM(projectID, project.title);
     this.#updateProjectList(project);
+    
     eventManager.triggerEvent("projectItemAdded", [ projectID ]);
   }
 
   removeProject(projectID) {
     for (const id in projectsList) {
       if (id === projectID) {
-        let projectNode = getProjectDOMCounterpart(id);
         delete projectsList[projectID];
-        eventManager.triggerEvent('projectsListModified');
-
-        // IF THE DELETED PROJECT WAS THE CURRENTLY ACTIVE PROJECT, SET A NEW ACTIVE PROJECT
-        if (projectNode.classList.contains("active")) { 
+        
+        // IF THE TO-BE DELETED PROJECT WAS THE CURRENTLY ACTIVE PROJECT, SET A NEW ACTIVE PROJECT
+        if (projectDisplay.isProjectActive(projectID)) { 
           this.setActiveProject();
         }
+        projectDisplay.removeProjectFromDOM(projectID);
+
+        eventManager.triggerEvent('projectsListModified');
         return;
       }
     }
@@ -54,15 +58,13 @@ class ProjectManager {
       {
         for (const id in projectsList) // MAKE ALL PROJECTS INACTIVE INITIALLY
         {
-          let itemNode = getProjectDOMCounterpart(id);
-          itemNode.className = "projectItem";
+          projectDisplay.setProjectAsInactive(id);
         }
+
         this.#activeProjectID = projectID;
+        projectDisplay.setProjectAsActive(projectID);
 
-        const activeProjectDOMCounterpart = getProjectDOMCounterpart(projectID);
-        activeProjectDOMCounterpart.classList.add('active');
         eventManager.triggerEvent("projectItemActive", [projectID]);
-
         return;
       }
       throw `Error - Project with ID ${projectID} not found`;
@@ -75,8 +77,7 @@ class ProjectManager {
       const firstProjectID = projectIDs[0];
       this.#activeProjectID = projectIDs[0];
 
-      const projectNode = getProjectDOMCounterpart(firstProjectID);
-      projectNode.classList.add("active");
+      projectDisplay.setProjectAsActive(firstProjectID);
       eventManager.triggerEvent("projectItemActive", [firstProjectID]);
     }
     else {
