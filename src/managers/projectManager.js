@@ -1,10 +1,6 @@
 import { projectsList, createProjectItem } from "../global_data";
-import { Project } from "../logic/projects/projects";
-
 import { projectDisplay } from "../logic/projects/projectsDisplay";
-
 import { eventManager } from "./eventManager";
-import { storeProjectDataLocally } from "./dataManager";
 
 class ProjectManager {
   #activeProjectID;

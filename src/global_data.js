@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from "uuid";
-import { projectManager } from "./managers/projectManager";
 import { eventManager } from "./managers/eventManager";
 import { todoManager } from "./managers/todoManager";
 
