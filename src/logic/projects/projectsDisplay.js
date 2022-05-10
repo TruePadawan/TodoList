@@ -12,7 +12,6 @@ class ProjectDisplay {
 
     removeProjectFromDOM(id) {
         this.getDOMNode(id).remove();
-
     }
 
     getDOMNode(id) {
