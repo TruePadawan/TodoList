@@ -1,17 +1,13 @@
-import { createDOMTodoItem, resetTodosContainer } from "../../global_data";
+import { createDOMTodoItem, resetTodosContainer, todoContainer } from "../../global_data";
+import { projectDisplay } from "../projects/projectsDisplay";
 /* HANDLE TAKING THE TODO DATA FROM PROJECT ITEMS AND ADDING THEM TO THE DOM */
 class TodoDisplay {
-    #projectTitleElement;
-    #todoContainer;
-
     constructor() {
-        this.#projectTitleElement = document.getElementById('currentProjectTitle');
-        this.#todoContainer = document.querySelector('.todos');
     }
 
     load(projectData) {
         resetTodosContainer();
-        this.setProjectTitle(projectData.title);
+        projectDisplay.setProjectTitle(projectData.title);
 
         let sortedTodolist = this.#sortTodoList(projectData.todos);
         for (let i = 0; i < sortedTodolist.length; ++i)
@@ -24,12 +20,8 @@ class TodoDisplay {
             };
 
             let item = createDOMTodoItem(props);
-            this.#todoContainer.appendChild(item);
+            todoContainer.appendChild(item);
         }
-    }
-
-    setProjectTitle(title) {
-        this.#projectTitleElement.textContent = title;
     }
 
     #sortTodoList(todos) {
