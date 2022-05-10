@@ -1,9 +1,13 @@
-import { eventManager } from "../../managers/eventManager";
-import { projectManager } from "../../managers/projectManager";
-import { storeProjectDataLocally } from "../../managers/dataManager";
 import { v4 as uuidv4 } from 'uuid';
 import { projectsList, resetTodosContainer } from "../../global_data";
+
+import { eventManager } from "../../managers/eventManager";
+import { projectManager } from "../../managers/projectManager";
+
+import { projectDisplay } from "./projectsDisplay";
 import { todoDisplay } from "../todos/todoDisplay";
+
+import { storeProjectDataLocally } from "../../managers/dataManager";
 import "./projects.css";
 
 export class Project {
@@ -56,10 +60,10 @@ try {
     eventManager.registerActionToEvent("projectItemTitleUpdated", (id, title) => {
         if (id in projectsList) {
             projectsList[id].title = title;
-            storeProjectDataLocally(projectsList);
+            eventManager.triggerEvent("projectsListModified");
 
             if (id === projectManager.getActiveProjectID()) {
-                todoDisplay.setProjectTitle(title);
+                projectDisplay.setProjectTitle(title);
             }
         }
     });
