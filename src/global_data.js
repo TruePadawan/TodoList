@@ -1,3 +1,4 @@
+import { eventManager } from "./managers/eventManager";
 import { todoManager } from "./managers/todoManager";
 
 
@@ -24,7 +25,7 @@ export function createTodoItem(props) {
 
 const todoItemTemplate = document.getElementById('todoItemTemplate');
 
-export function createDOMItem(props) {
+export function createDOMTodoItem(props) {
     let item = todoItemTemplate.content.firstElementChild.cloneNode(true);
     item.setAttribute('data-id', props.id);
     item.classList.add(props.priority);
@@ -50,4 +51,37 @@ export function resetTodosContainer() {
     {
         todoContainer.removeChild(todoContainer.lastElementChild);
     }
+}
+
+const projectItemTemplate = document.getElementById('projectTemplate');
+export function createDOMProjectItem(props) {
+    let item = projectItemTemplate.content.firstElementChild.cloneNode(true);
+    item.querySelector(".projectTitle").textContent = props.title;
+    item.dataset.id = props.id;
+
+    item.addEventListener("click", () => {
+        eventManager.triggerEvent('projectItemClicked', [props.id]);
+    });
+
+    item.addEventListener('input', (e) => {
+        let updatedTitle = e.target.textContent;
+        eventManager.triggerEvent('projectItemTitleUpdated', [props.id, updatedTitle]);
+    });
+
+
+    let deleteProjectBtn = item.querySelector(".deleteProjectItem");
+    deleteProjectBtn.addEventListener("click", (e) => {
+        item.remove();
+        eventManager.triggerEvent('projectItemDeleted', [props.id]);
+        
+        e.stopPropagation();
+    });
+
+    return item;
+}
+
+export const projectsContainer = document.querySelector('.projects');
+export function getProjectDOMCounterpart(projectID) {
+    let node = projectsContainer.querySelector(`.projectItem[data-id='${projectID}']`);
+    return node;
 }
