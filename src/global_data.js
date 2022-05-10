@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { projectManager } from "./managers/projectManager";
 import { eventManager } from "./managers/eventManager";
 import { todoManager } from "./managers/todoManager";
 
@@ -85,16 +86,10 @@ export function createDOMProjectItem(props) {
 
     let deleteProjectBtn = item.querySelector(".deleteProjectItem");
     deleteProjectBtn.addEventListener("click", (e) => {
-        item.remove();
         eventManager.triggerEvent('projectItemDeleted', [props.id]);
         
         e.stopPropagation();
     });
 
     return item;
-}
-
-export function getProjectDOMCounterpart(projectID) {
-    let node = projectsContainer.querySelector(`.projectItem[data-id='${projectID}']`);
-    return node;
 }
