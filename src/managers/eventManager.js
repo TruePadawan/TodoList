@@ -24,7 +24,7 @@ class EventManager {
         throw `Event ${eventName} Not Registered`;
     }
 
-    triggerEvent(eventName, params)
+    triggerEvent(eventName, params = [])
     {
         const isEventRegistered = this.#events.hasOwnProperty(eventName);
 
