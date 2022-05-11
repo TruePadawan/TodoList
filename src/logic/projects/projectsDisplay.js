@@ -1,10 +1,6 @@
 import { createDOMProjectItem, projectsContainer, projectTitleElement } from "../../global_data";
 
 class ProjectDisplay {
-    constructor() {
-        
-    }
-
     addProjectToDOM(id, title) {
         let domNode = createDOMProjectItem({ id, title });
         projectsContainer.appendChild(domNode);

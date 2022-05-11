@@ -11,9 +11,6 @@ export const getTodoDataFromID = (id) => {
 }
 
 class TodoManager {
-    constructor() {  
-    }
-
     addTodoItem = (todoItem, projectID) => {
         if (projectID === "") throw "No Projects Available. Create a project";
         if(projectID in projectsList)

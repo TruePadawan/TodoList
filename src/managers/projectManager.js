@@ -5,9 +5,6 @@ import { eventManager } from "./eventManager";
 class ProjectManager {
   #activeProjectID;
 
-  constructor() {
-  }
-
   addProject(project = {}) {
     if(Object.keys(project).length === 0)
     {

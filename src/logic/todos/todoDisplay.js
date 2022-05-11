@@ -2,9 +2,6 @@ import { createDOMTodoItem, resetTodosContainer, todoContainer } from "../../glo
 import { projectDisplay } from "../projects/projectsDisplay";
 /* HANDLE TAKING THE TODO DATA FROM PROJECT ITEMS AND ADDING THEM TO THE DOM */
 class TodoDisplay {
-    constructor() {
-    }
-
     load(projectData) {
         resetTodosContainer();
         projectDisplay.setProjectTitle(projectData.title);
