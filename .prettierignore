@@ -1,0 +1,11 @@
+# Ignore artifacts:
+build
+coverage
+
+dist/main.js
+package.json
+package-lock.json
+.jshintrc
+.prettierrc.json
+README.md
+webpack.config.js
