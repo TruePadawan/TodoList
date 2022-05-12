@@ -1,91 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="image/png" sizes="32x32" rel="icon" href="./images/checklist_32px.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      type="image/png"
+      sizes="32x32"
+      rel="icon"
+      href="./images/checklist_32px.png"
+    />
     <script defer src="./main.js"></script>
     <title>YourTodo</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <nav>
-            <button type="button" class="sidebarBtn">
-                <img src="./images/menu.png" alt="Sidebar">
-            </button>
-            <div class="navMain">
-                <img class="navIcon" src="./images/checklist.png" alt="TodoList Icon">
-                <span class="navTitle">YourTodo</span>
-            </div>
-        </nav>
+      <nav>
+        <button type="button" class="sidebarBtn">
+          <img src="./images/menu.png" alt="Sidebar" />
+        </button>
+        <div class="navMain">
+          <img
+            class="navIcon"
+            src="./images/checklist.png"
+            alt="TodoList Icon"
+          />
+          <span class="navTitle">YourTodo</span>
+        </div>
+      </nav>
     </header>
     <main class="sidebarClosed" data-sidebar="closed">
-        <aside class="sidebar closed">
-            <h2>Projects</h2>
-            <button type="button" id="newProjectBtn">New Project</button>
+      <aside class="sidebar closed">
+        <h2>Projects</h2>
+        <button type="button" id="newProjectBtn">New Project</button>
 
-            <div class="projects">
-                <!-- PROJECT ITEM TEMPLATE USED FOR CREATING NEW PROJECT ITEMS VIA JAVASCRIPT -->
-                <template id="projectTemplate">
-                    <button type="button" class="projectItem">
-                        <span class="projectTitle" role="textbox" contenteditable>Untitled</span>
-                        <img class="deleteProjectItem" role="button" src="./images/trash.png" alt="Trash">
-                    </button>    
-                </template>
-            </div>
-        </aside>
-
-        <section aria-labelledby="currentProjectTitle" class="container">
-            <h1 id="currentProjectTitle">Default</h1>
-            <button id="newItemBtn">New Item</button>
-            <template id="todoItemTemplate">
-                <li class="todoItem">
-                    <span class="todoItem_title"></span>
-                    <button class="showTodoDetailsBtn">Details</button>
-                </li>    
-            </template>
-            <ul class="todos">
-            </ul>
+        <div class="projects">
+          <!-- PROJECT ITEM TEMPLATE USED FOR CREATING NEW PROJECT ITEMS VIA JAVASCRIPT -->
+          <template id="projectTemplate">
+            <button type="button" class="projectItem">
+              <span class="projectTitle" role="textbox" contenteditable
+                >Untitled</span
+              >
+              <img
+                class="deleteProjectItem"
+                role="button"
+                src="./images/trash.png"
+                alt="Trash"
+              />
+            </button>
+          </template>
         </div>
+      </aside>
+
+      <section aria-labelledby="currentProjectTitle" class="container">
+        <h1 id="currentProjectTitle">Default</h1>
+        <button id="newItemBtn">New Item</button>
+        <template id="todoItemTemplate">
+          <li class="todoItem">
+            <span class="todoItem_title"></span>
+            <button class="showTodoDetailsBtn">Details</button>
+          </li>
+        </template>
+        <ul class="todos"></ul>
+      </section>
     </main>
 
     <!-- POPUP FOR CREATING TODO ITEMS -->
     <dialog class="createTodoItemDialog">
-        <form>
-            <span class="dialogTitle">New Item</span>
-            <div class="formInputFields">
-                <input type="text" class="todoItemTitle" placeholder="Review Waves in Physics" required minlength="2">
-                <input type="date" required class="todoItemDueDate">
-                <select class="selectItemPriority" required>
-                    <option value="priority_low" selected>Low Priority</option>
-                    <option value="priority_med">Medium Priority</option>
-                    <option value="priority_high">High Priority</option>
-                </select>
-                <textarea placeholder="Review waves in physics due to upcoming test" required class="todoItemDescription" minlength="2"></textarea>
-            </div>
-            <button class="formBtn addTodoItemBtn" type="submit">Add</button>
-        </form>
+      <form>
+        <span class="dialogTitle">New Item</span>
+        <div class="formInputFields">
+          <input
+            type="text"
+            class="todoItemTitle"
+            placeholder="Review Waves in Physics"
+            required
+            minlength="2"
+          />
+          <input type="date" required class="todoItemDueDate" />
+          <select class="selectItemPriority" required>
+            <option value="priority_low" selected>Low Priority</option>
+            <option value="priority_med">Medium Priority</option>
+            <option value="priority_high">High Priority</option>
+          </select>
+          <textarea
+            placeholder="Review waves in physics due to upcoming test"
+            required
+            class="todoItemDescription"
+            minlength="2"
+          ></textarea>
+        </div>
+        <button class="formBtn addTodoItemBtn" type="submit">Add</button>
+      </form>
     </dialog>
 
     <!-- TODO ITEM DETAILS POPUP -->
     <dialog class="todoItemDetailsDialog">
-        <form>
-            <span class="dialogTitle">Details</span>
-            <div class="formInputFields">
-                <input type="text" class="todoItemTitle" minlength="2" required>
-                <input type="date" class="todoItemDueDate" required>
-                <select class="selectItemPriority" required>
-                    <option value="priority_low" selected>Low Priority</option>
-                    <option value="priority_med">Medium Priority</option>
-                    <option value="priority_high">High Priority</option>
-                </select>
-                <textarea class="todoItemDescription" minlength="2" required></textarea>
-            </div>
-            <button class="formBtn saveBtn" data-type="save">Save</button>
-            <button class="formBtn statusBtn" data-type="status">Mark Done/Not Done</button>
-            <button class="formBtn deleteBtn" data-type="delete">Delete</button>
-        </form>
+      <form>
+        <span class="dialogTitle">Details</span>
+        <div class="formInputFields">
+          <input type="text" class="todoItemTitle" minlength="2" required />
+          <input type="date" class="todoItemDueDate" required />
+          <select class="selectItemPriority" required>
+            <option value="priority_low" selected>Low Priority</option>
+            <option value="priority_med">Medium Priority</option>
+            <option value="priority_high">High Priority</option>
+          </select>
+          <textarea
+            class="todoItemDescription"
+            minlength="2"
+            required
+          ></textarea>
+        </div>
+        <button class="formBtn saveBtn" data-type="save">Save</button>
+        <button class="formBtn statusBtn" data-type="status">
+          Mark Done/Not Done
+        </button>
+        <button class="formBtn deleteBtn" data-type="delete">Delete</button>
+      </form>
     </dialog>
-</body>
+  </body>
 </html>

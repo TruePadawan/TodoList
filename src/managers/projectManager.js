@@ -6,24 +6,23 @@ class ProjectManager {
   #activeProjectID;
 
   addProject(project = {}) {
-    if(Object.keys(project).length === 0)
-    {
+    if (Object.keys(project).length === 0) {
       project = createProjectItem("Untitled");
     }
     const projectID = project.id;
     projectDisplay.addProjectToDOM(projectID, project.title);
     this.#updateProjectList(project);
-    
-    eventManager.triggerEvent("projectItemAdded", [ projectID ]);
+
+    eventManager.triggerEvent("projectItemAdded", [projectID]);
   }
 
   removeProject(projectID) {
     for (const id in projectsList) {
       if (id === projectID) {
         delete projectsList[id];
-        
+
         // IF THE DELETED PROJECT WAS THE CURRENTLY ACTIVE PROJECT, SET A NEW ACTIVE PROJECT
-        if (projectDisplay.isProjectActive(id)) { 
+        if (projectDisplay.isProjectActive(id)) {
           this.setActiveProject();
         }
         projectDisplay.removeProjectFromDOM(id);
@@ -39,12 +38,11 @@ class ProjectManager {
   }
 
   setActiveProject(projectID = "") {
-    if (projectID !== "")
-    {
-      if (projectsList.hasOwnProperty(projectID)) // CHECK IF A PROJECT, WITH THE ID CONTAINED IN 'PROJECTID', EXISTS
-      {
-        for (const id in projectsList) // MAKE ALL PROJECTS INACTIVE INITIALLY
-        {
+    if (projectID !== "") {
+      if (projectsList.hasOwnProperty(projectID)) {
+        // CHECK IF A PROJECT, WITH THE ID CONTAINED IN 'PROJECTID', EXISTS
+        for (const id in projectsList) {
+          // MAKE ALL PROJECTS INACTIVE INITIALLY
           projectDisplay.setProjectAsInactive(id);
         }
 
@@ -59,17 +57,16 @@ class ProjectManager {
 
     // MAKE THE FIRST PROJECT ITEM THE DEFAULT ACTIVE PROJECT
     const projectIDs = Object.keys(projectsList);
-    if (projectIDs.length > 0) // MAKING SURE THERE IS AT LEAST ONE PROJECT
-    {
+    if (projectIDs.length > 0) {
+      // MAKING SURE THERE IS AT LEAST ONE PROJECT
       const firstProjectID = projectIDs[0];
       this.#activeProjectID = projectIDs[0];
 
       projectDisplay.setProjectAsActive(firstProjectID);
       eventManager.triggerEvent("projectItemActive", [firstProjectID]);
-    }
-    else {
+    } else {
       this.#activeProjectID = "";
-      eventManager.triggerEvent('allProjectsDeleted', []);
+      eventManager.triggerEvent("allProjectsDeleted", []);
     }
   }
 
